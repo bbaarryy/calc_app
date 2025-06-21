@@ -45,7 +45,7 @@ while True:
             cursor_ind += 1
         elif(event.name == 'backspace'):
             try:
-                arr.pop(cursor_ind)
+                arr.pop(cursor_ind-1)
             except:
                 continue
             cursor_ind -=1
