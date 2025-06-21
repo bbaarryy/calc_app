@@ -20,7 +20,7 @@ def print_ans(arr):
         ans = str(eval(s))
         keyboard.write(ans)
     except:
-        keyboard.write('?')
+        keyboard.write("wtf")
 
     print(s)
 
