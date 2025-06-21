@@ -58,7 +58,15 @@ while True:
                 elif(event.name == '='):
                     arr.insert(cursor_ind, '+')
                     cursor_ind+=1
-                #print(arr)
+                elif(event.name == '9'):
+                    arr.insert(cursor_ind, '(')
+                    cursor_ind+=1
+                    arr.insert(cursor_ind, ')')
+                elif(event.name == '0'):
+                    if(arr[cursor_ind] != ')'):
+                        arr.insert(cursor_ind, ')')
+                    cursor_ind+=1
+                print(arr)
             else:
                 arr.insert(cursor_ind, event.name)
                 cursor_ind += 1
