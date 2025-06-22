@@ -15,6 +15,7 @@ def print_ans(arr):
             break
 
     s = s.replace(' ','')
+    s = s.replace('))',')')
 
     try:
         ans = str(eval(s))
@@ -26,6 +27,9 @@ def print_ans(arr):
 
 while True:
     event = keyboard.read_event()
+
+    if(len(arr) > 100):
+        arr.pop(0)
 
     if(event.name == 'shift' and event.event_type == keyboard.KEY_DOWN):
         is_shift = 1
@@ -61,10 +65,9 @@ while True:
                 elif(event.name == '9'):
                     arr.insert(cursor_ind, '(')
                     cursor_ind+=1
-                    arr.insert(cursor_ind, ')')
+                    #arr.insert(cursor_ind, ')')
                 elif(event.name == '0'):
-                    if(arr[cursor_ind] != ')'):
-                        arr.insert(cursor_ind, ')')
+                    arr.insert(cursor_ind,')')
                     cursor_ind+=1
                 print(arr)
             else:
