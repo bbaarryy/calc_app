@@ -6,9 +6,9 @@ free = ['1','2','3','4','5','6','7','8','9','0','-','+','*','/','(',')',' ']
 cursor_ind = 0
 is_shift = 0
 
-def print_ans(arr):
+def print_ans(arr,cursor_ind):
     s = ""
-    for i in range(len(arr)-1,-1,-1):
+    for i in range(cursor_ind,-1,-1):
         if(arr[i] in free):
             s = arr[i] + s
         else:
@@ -49,7 +49,7 @@ while True:
             cursor_ind += 1
         elif(event.name == 'backspace'):
             try:
-                arr.pop(cursor_ind-1)
+                arr.pop(cursor_ind-1)  
             except:
                 continue
             cursor_ind -=1
@@ -73,10 +73,10 @@ while True:
             else:
                 arr.insert(cursor_ind, event.name)
                 cursor_ind += 1
-                if(arr[-1] == '='):
-                    arr.pop(-1)
-                    print_ans(arr)
+                if(arr[cursor_ind-1] == '='):
+                    cursor_ind-=1
+                    arr.pop(cursor_ind)
+                    print_ans(arr,cursor_ind-1)
                     arr.clear()
                     cursor_ind = 0
-        
-        
+
