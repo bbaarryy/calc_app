@@ -15,7 +15,6 @@ def print_ans(arr,cursor_ind):
             break
 
     s = s.replace(' ','')
-    s = s.replace('))',')')
 
     try:
         ans = str(eval(s))
@@ -31,14 +30,14 @@ while True:
     if(len(arr) > 100):
         arr.pop(0)
 
-    if(event.name == 'shift' and event.event_type == keyboard.KEY_DOWN):
-        is_shift = 1
-    
-    if(event.name == 'shift' and event.event_type == keyboard.KEY_UP):
-        is_shift = 0
+    if event.name == 'shift' or event.name == 'right shift':
+        if(event.event_type == keyboard.KEY_DOWN):
+            is_shift = 1
+        elif (event.event_type == keyboard.KEY_UP):
+            is_shift = 0
 
     
-    elif(event.event_type == keyboard.KEY_UP):
+    elif(event.event_type == keyboard.KEY_DOWN):
 
         if(event.name == '−'):
             arr.insert(cursor_ind, '-')
@@ -56,17 +55,17 @@ while True:
             cursor_ind = max(0,cursor_ind)
         elif event.name != 'shift':
             if(is_shift):
-                if(event.name == '8'):
+                if(event.name == '8' or event.name == '*'):
                     arr.insert(cursor_ind, '*')
                     cursor_ind+=1
-                elif(event.name == '='):
+                elif(event.name == '=' or event.name == '+'):
                     arr.insert(cursor_ind, '+')
                     cursor_ind+=1
-                elif(event.name == '9'):
+                elif(event.name == '9' or event.name == '('):
                     arr.insert(cursor_ind, '(')
                     cursor_ind+=1
                     #arr.insert(cursor_ind, ')')
-                elif(event.name == '0'):
+                elif(event.name == '0' or event.name == ')'):
                     arr.insert(cursor_ind,')')
                     cursor_ind+=1
                 print(arr)
