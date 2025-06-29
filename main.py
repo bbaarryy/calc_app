@@ -3,8 +3,8 @@ import keyboard
 FREE = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '-', '+', '*', '/', '(', ')', ' ']
 SHIFT_KEYS = {'=': '+', '8': '*', '9': '(', '0': ')'}
 arr = []
-cursor_ind = 0
 is_shift = 0
+cursor_ind = 0
 
 
 def print_ans(arr, cursor_ind):
