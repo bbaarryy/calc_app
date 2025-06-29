@@ -29,7 +29,6 @@ while True:
     if event.event_type == keyboard.KEY_DOWN:
         if event.name == 'shift' or event.name == 'right shift':
             is_shift = 1
-
     elif event.event_type == keyboard.KEY_UP:
         match event.name:
             case 'shift' | 'right shift':
