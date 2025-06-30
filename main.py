@@ -31,6 +31,11 @@ while True:
             is_shift = 1
     elif event.event_type == keyboard.KEY_UP:
         match event.name:
+            case 'delete':
+                try:
+                    arr.pop(cursor_ind)
+                except:
+                    continue
             case 'shift' | 'right shift':
                 is_shift = 0
             case 'right':
@@ -38,7 +43,7 @@ while True:
             case 'left':
                 cursor_ind = max(0, cursor_ind - 1)
             case 'backspace' if arr:
-                arr.pop(cursor_ind - 1)
+                arr.pop(cursor_ind - 1)1=11+2=3 4+4=8
                 cursor_ind = max(0, cursor_ind - 1)
             case name if name in SHIFT_KEYS and is_shift:
                 arr.insert(cursor_ind, SHIFT_KEYS[name])
