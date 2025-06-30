@@ -30,16 +30,15 @@ while True:
 
     if(len(arr) > 100):
         arr.pop(0)
+        cursor_ind -=1
 
     if(event.name == 'shift' and event.event_type == keyboard.KEY_DOWN):
         is_shift = 1
     
     if(event.name == 'shift' and event.event_type == keyboard.KEY_UP):
         is_shift = 0
-
     
     elif(event.event_type == keyboard.KEY_UP):
-
         if(event.name == '−'):
             arr.insert(cursor_ind, '-')
             cursor_ind+=1
@@ -54,19 +53,25 @@ while True:
                 continue
             cursor_ind -=1
             cursor_ind = max(0,cursor_ind)
+        elif(event.name == 'delete'):
+            try:
+                arr.pop(cursor_ind)  
+            except:
+                continue
+
         elif event.name != 'shift':
             if(is_shift):
-                if(event.name == '8'):
+                if(event.name == '8' or event.name == '*'):
                     arr.insert(cursor_ind, '*')
                     cursor_ind+=1
-                elif(event.name == '='):
+                elif(event.name == '=' or event.name == '+'):
                     arr.insert(cursor_ind, '+')
                     cursor_ind+=1
-                elif(event.name == '9'):
+                elif(event.name == '9' or event.name == '('):
                     arr.insert(cursor_ind, '(')
                     cursor_ind+=1
                     #arr.insert(cursor_ind, ')')
-                elif(event.name == '0'):
+                elif(event.name == '0' or event.name == ')'):
                     arr.insert(cursor_ind,')')
                     cursor_ind+=1
                 print(arr)
