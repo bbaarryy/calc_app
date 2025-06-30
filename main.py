@@ -1,20 +1,15 @@
 import keyboard
-import time
 
+FREE = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '-', '+', '*', '/', '(', ')', ' ']
+SHIFT_KEYS = {'=': '+', '8': '*', '9': '(', '0': ')'}
 arr = []
-free = ['1','2','3','4','5','6','7','8','9','0','-','+','*','/','(',')',' ']
-cursor_ind = 0
 is_shift = 0
+cursor_ind = 0
 
-def print_ans(arr,cursor_ind):
-    s = ""
-    for i in range(cursor_ind,-1,-1):
-        if(arr[i] in free):
-            s = arr[i] + s
-        else:
-            break
 
-    s = s.replace(' ','')
+def print_ans(arr, cursor_ind):
+    s = "".join(arr[:cursor_ind + 1])
+    s = s.replace(' ', '')
 
     try:
         ans = str(eval(s))
@@ -24,58 +19,34 @@ def print_ans(arr,cursor_ind):
 
     print(s)
 
+
 while True:
     event = keyboard.read_event()
 
-    if(len(arr) > 100):
+    if len(arr) > 100:
         arr.pop(0)
 
-    if event.name == 'shift' or event.name == 'right shift':
-        if(event.event_type == keyboard.KEY_DOWN):
+    if event.event_type == keyboard.KEY_DOWN:
+        if event.name == 'shift' or event.name == 'right shift':
             is_shift = 1
-        elif (event.event_type == keyboard.KEY_UP):
-            is_shift = 0
-
-    
-    elif(event.event_type == keyboard.KEY_DOWN):
-
-        if(event.name == '−'):
-            arr.insert(cursor_ind, '-')
-            cursor_ind+=1
-        elif(event.name == 'left'):
-            cursor_ind -=1
-        elif(event.name == 'right'):
-            cursor_ind += 1
-        elif(event.name == 'backspace'):
-            try:
-                arr.pop(cursor_ind-1)  
-            except:
-                continue
-            cursor_ind -=1
-            cursor_ind = max(0,cursor_ind)
-        elif event.name != 'shift':
-            if(is_shift):
-                if(event.name == '8' or event.name == '*'):
-                    arr.insert(cursor_ind, '*')
-                    cursor_ind+=1
-                elif(event.name == '=' or event.name == '+'):
-                    arr.insert(cursor_ind, '+')
-                    cursor_ind+=1
-                elif(event.name == '9' or event.name == '('):
-                    arr.insert(cursor_ind, '(')
-                    cursor_ind+=1
-                    #arr.insert(cursor_ind, ')')
-                elif(event.name == '0' or event.name == ')'):
-                    arr.insert(cursor_ind,')')
-                    cursor_ind+=1
-                print(arr)
-            else:
-                arr.insert(cursor_ind, event.name)
+    elif event.event_type == keyboard.KEY_UP:
+        match event.name:
+            case 'shift' | 'right shift':
+                is_shift = 0
+            case 'right':
+                cursor_ind = min(len(arr), cursor_ind + 1)
+            case 'left':
+                cursor_ind = max(0, cursor_ind - 1)
+            case 'backspace' if arr:
+                arr.pop(cursor_ind - 1)
+                cursor_ind = max(0, cursor_ind - 1)
+            case name if name in SHIFT_KEYS and is_shift:
+                arr.insert(cursor_ind, SHIFT_KEYS[name])
                 cursor_ind += 1
-                if(arr[cursor_ind-1] == '='):
-                    cursor_ind-=1
-                    arr.pop(cursor_ind)
-                    print_ans(arr,cursor_ind-1)
-                    arr.clear()
-                    cursor_ind = 0
-
+            case '=':
+                print_ans(arr, cursor_ind - 1)
+                arr.clear()
+                cursor_ind = 0
+            case name if name in FREE:
+                arr.insert(cursor_ind, name)
+                cursor_ind += 1
