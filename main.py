@@ -19,6 +19,7 @@ tranq = {'Й':'Q','Ц':'W','У':'E','К':'R','Е':'T',
     'и':'b','т':'n','ь':'m','б':',','ю':'.',
     'ё':'`'}
 
+text = pyperclip.paste()
 arr = []
 all = []
 is_shift = 0
@@ -97,18 +98,12 @@ while True:
             case 'ctrl':
                 if(len(arr)>0 and arr[-1]=='ctrl'):
                     keyboard.send('shift + home,ctrl+c, backspace,alt+shift')
-                    
+                    # keyboard.send('ctrl + v')
                     text = pyperclip.paste()
                     
                     print(text)
-                    for i in range(len(text)):
-                        if(97 <= ord(text[i].lower()) <= 123):
-                            keyboard.send(text[i].lower())
-                        else:
-                            if(text[i] in tranq):
-                                keyboard.send(tranq[text[i]])
-                            else:
-                                keyboard.send(text[i])
+                    
+                    
                     arr.clear()
                 else:
                     arr.insert(cursor_ind, 'ctrl')
@@ -117,7 +112,7 @@ while True:
                 if keep_last:
                     if name =='space':
                         arr.clear()
-                        cursor_ind =0
+                        cursor_ind=0
                         keep_last=0
                     else:
                         arr.insert(cursor_ind, name)
